@@ -5,6 +5,7 @@ using UnityEngine;
 public class DonutMech : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI counterText;
+    [SerializeField] private ParticleSystem sprinkles;
 
     [Header("Spin Settings")]
     [SerializeField] private float spinPower = 500f;
@@ -35,6 +36,8 @@ public class DonutMech : MonoBehaviour
         transform.DOPunchScale(Vector3.one * 0.15f, 0.15f);
 
         ShowFloatingNumber();
+
+        if (sprinkles) sprinkles.Play();
     }
 
     void ShowFloatingNumber()
@@ -43,9 +46,9 @@ public class DonutMech : MonoBehaviour
 
         // Создаём +1 в позиции счётчика
         TextMeshProUGUI flyingText = Instantiate(floatingTextPrefab,
-            counterText.transform.position + new Vector3(100f, 240f, 0),
+            counterText.transform.position + new Vector3(0, 10f, 0),
             Quaternion.identity,
-            counterText.transform.parent); // Родитель — Canvas
+            counterText.transform); // Родитель — Canvas
 
         flyingText.text = $"+1";
         flyingText.gameObject.SetActive(true);
